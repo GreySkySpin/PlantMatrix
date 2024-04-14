@@ -1,3 +1,48 @@
+//window.addEventListener('DOMContentLoaded', () => {
+document.onload = () => {
+		console.log('DOM content loaded');
+			// Adjust the viewBox for the adjacency matrix SVG during initial setup
+		const adjacencyMatrixContainer = document.getElementById('adjacency-matrix');
+		const adjacencyMatrixWidth = adjacencyMatrixContainer.clientWidth;
+		const adjacencyMatrixHeight = adjacencyMatrixContainer.clientHeight;
+		renderAdjacencyMatrix(matrixData, "#adjacency-matrix", adjacencyMatrixWidth, adjacencyMatrixHeight);
+
+		// Adjust the viewBox for the logical representation SVG during initial setup
+		const logicalRepresentationContainer = document.getElementById('logical-representation');
+		const logicalRepresentationWidth = logicalRepresentationContainer.clientWidth;
+		const logicalRepresentationHeight = logicalRepresentationContainer.clientHeight;
+		renderLogicalRepresentation(logicalData, "#logical-representation", logicalRepresentationWidth, logicalRepresentationHeight);
+};
+
+// JavaScript to dynamically adjust the viewBox of the SVG
+window.addEventListener('resize', () => {
+		// Adjust the viewBox for the adjacency matrix SVG
+		const adjacencyMatrixContainer = document.getElementById('adjacency-matrix');
+		const adjacencyMatrixSvg = adjacencyMatrixContainer.querySelector('svg');
+		const adjacencyMatrixWidth = adjacencyMatrixContainer.clientWidth;
+		const adjacencyMatrixHeight = adjacencyMatrixContainer.clientHeight;
+		 adjacencyMatrixSvg.setAttribute('viewBox', `${-adjacencyMatrixWidth/2} ${-adjacencyMatrixHeight/2} ${adjacencyMatrixWidth*2} ${adjacencyMatrixHeight*2}`); 
+
+		// Log the width and height for debugging
+		console.log("Adjacency Mat. SVG width DOM:", adjacencyMatrixWidth);
+		console.log("Adjacency Mat. SVG height DOM:", adjacencyMatrixHeight);
+	  
+		// Adjust the viewBox for the logical representation SVG
+		const logicalRepresentationContainer = document.getElementById('logical-representation');
+		const logicalRepresentationSvg = logicalRepresentationContainer.querySelector('svg');
+		const logicalRepresentationWidth = logicalRepresentationContainer.clientWidth;
+		const logicalRepresentationHeight = logicalRepresentationContainer.clientHeight;
+		logicalRepresentationSvg.setAttribute('viewBox', `${-adjacencyMatrixWidth/2} ${-adjacencyMatrixHeight/2} ${adjacencyMatrixWidth*2} ${adjacencyMatrixHeight*2}`);
+
+		// Log the width and height for debugging
+		console.log("Logical Rep. SVG width DOM:", logicalRepresentationWidth);
+		console.log("Logical Rep. SVG height DOM:", logicalRepresentationHeight);
+  
+ });
+
+
+
+
 // Define global variable to hold the data array
 var matrixData = [];
 
@@ -396,7 +441,7 @@ function setupZoomAndPan(containerId) {
     svg.on("wheel", function () {
         const t = d3.zoomTransform(this);
         const newTransform = constrainTranslation(t);
-        if (!t.equals(newTransform)) {
+        if (t.x !== newTransform.x || t.y !== newTransform.y || t.k !== newTransform.k) {
             svg.transition().duration(500).call(zoom.transform, newTransform);
         }
     });

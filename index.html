@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Companion Planting Visualizations</title>
-    <!-- <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script> -->
+    <!-- <script src="https://d3js.org/d3.v7.min.js"></script> -->
+	<script src="https://d3js.org/d3.v6.min.js"></script> <!-- Link to D3.js library -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <style>
 		.div-border {
@@ -41,50 +42,6 @@
 				 <div class="div-svg-border" id="logical-representation"></div>
 		  </div>
 	</div>
-	<script src="https://d3js.org/d3.v6.min.js"></script> <!-- Link to D3.js library -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-	<script src="./script.js" type="text/javascript">
-		window.addEventListener('DOMContentLoaded', () => {
-				console.log('DOM content loaded');
-					// Adjust the viewBox for the adjacency matrix SVG during initial setup
-				const adjacencyMatrixContainer = document.getElementById('adjacency-matrix');
-				const adjacencyMatrixWidth = adjacencyMatrixContainer.clientWidth;
-				const adjacencyMatrixHeight = adjacencyMatrixContainer.clientHeight;
-				renderAdjacencyMatrix(matrixData, "#adjacency-matrix", adjacencyMatrixWidth, adjacencyMatrixHeight);
-
-				// Adjust the viewBox for the logical representation SVG during initial setup
-				const logicalRepresentationContainer = document.getElementById('logical-representation');
-				const logicalRepresentationWidth = logicalRepresentationContainer.clientWidth;
-				const logicalRepresentationHeight = logicalRepresentationContainer.clientHeight;
-				renderLogicalRepresentation(logicalData, "#logical-representation", logicalRepresentationWidth, logicalRepresentationHeight);
-			});
-
-			// JavaScript to dynamically adjust the viewBox of the SVG
-			window.addEventListener('resize', () => {
-				// Adjust the viewBox for the adjacency matrix SVG
-				const adjacencyMatrixContainer = document.getElementById('adjacency-matrix');
-				const adjacencyMatrixSvg = adjacencyMatrixContainer.querySelector('svg');
-				const adjacencyMatrixWidth = adjacencyMatrixContainer.clientWidth;
-				const adjacencyMatrixHeight = adjacencyMatrixContainer.clientHeight;
-				 adjacencyMatrixSvg.setAttribute('viewBox', `${-adjacencyMatrixWidth/2} ${-adjacencyMatrixHeight/2} ${adjacencyMatrixWidth*2} ${adjacencyMatrixHeight*2}`); 
-
-				// Log the width and height for debugging
-				console.log("Adjacency Mat. SVG width DOM:", adjacencyMatrixWidth);
-				console.log("Adjacency Mat. SVG height DOM:", adjacencyMatrixHeight);
-			  
-				// Adjust the viewBox for the logical representation SVG
-				const logicalRepresentationContainer = document.getElementById('logical-representation');
-				const logicalRepresentationSvg = logicalRepresentationContainer.querySelector('svg');
-				const logicalRepresentationWidth = logicalRepresentationContainer.clientWidth;
-				const logicalRepresentationHeight = logicalRepresentationContainer.clientHeight;
-				logicalRepresentationSvg.setAttribute('viewBox', `${-adjacencyMatrixWidth/2} ${-adjacencyMatrixHeight/2} ${adjacencyMatrixWidth*2} ${adjacencyMatrixHeight*2}`);
-
-				// Log the width and height for debugging
-				console.log("Logical Rep. SVG width DOM:", logicalRepresentationWidth);
-				console.log("Logical Rep. SVG height DOM:", logicalRepresentationHeight);
-			  
-			 });
-	</script>
-
+	<script src="./script.js" type="text/javascript"></script>
 </body>
 </html>
