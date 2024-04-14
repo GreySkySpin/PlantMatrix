@@ -4,20 +4,20 @@ var matrixData = [];
 // Read CSV file and generate visualizations
 d3.csv("2022_net_plant_data-org.csv")
 	.then(function(data) {
-	console.log("Data loaded:", data);
-	
-	// Data has been successfully loaded
-	matrixData = data.map(function(d) {
-	  // Process data here
-	  // Example: extract companion plants for each plant
-	  var plantName = d.plant_name;
-	  var companionPlants = d.companion_plants.split(',').map(function(item) {
-		return item.trim();
-	  });
-	  return { plant: plantName, companions: companionPlants };
-	});
+		console.log("Data loaded:", data);
+		
+		// Data has been successfully loaded
+		matrixData = data.map(function(d) {
+		  // Process data here
+		  // Example: extract companion plants for each plant
+		  var plantName = d.plant_name;
+		  var companionPlants = d.companion_plants.split(',').map(function(item) {
+			return item.trim();
+		  });
+		  return { plant: plantName, companions: companionPlants };
+		});
 
-	console.log("Matrix Data-HERE:", matrixData);				
+		console.log("Matrix Data-HERE:", matrixData);				
 	
 		if (matrixData && matrixData.length > 0) {
             // Generate logical data
@@ -30,6 +30,12 @@ d3.csv("2022_net_plant_data-org.csv")
             console.error("Error: matrixData is empty or undefined.");
         }
 	
+		console.log("Logical Data 1:", logicalData.nodes, logicalData.edges);
+	
+		console.log("Node IDs:");
+				logicalData.nodes.forEach(node => {
+				console.log(node.id);
+		});
 /* 		if (Array.isArray(matrixData)) {
 		  console.log("matrixData is an array");
 		} else {
@@ -85,17 +91,13 @@ function generateLogicalData(matrixData) {
 	}
 	// Return the generated logical data
     return { nodes, edges };
+	
+
 }
 
-	// Usage example:
-	const logicalData = generateLogicalData(matrixData);
 
-	console.log("Logical Data:", logicalData.nodes, logicalData.edges);
 
-	console.log("Node IDs:");
-	logicalData.nodes.forEach(node => {
-		console.log(node.id);
-});
+
 
 // Function to render the adjacency matrix
 function renderAdjacencyMatrix(matrixData, containerId, viewBoxWidth, viewBoxHeight) {
@@ -212,7 +214,7 @@ function renderAdjacencyMatrix(matrixData, containerId, viewBoxWidth, viewBoxHei
 	  
 	  
 		// Set the viewBox attribute
-		 svg.attr("viewBox", `${-viewBoxWidth/2} ${-viewBoxHeight/2} ${viewBoxWidth*2} ${viewBoxHeight*2}`);
+		 svg.attr("viewBox", `0 0 ${viewBoxWidth} ${viewBoxHeight}`);
 	  
 		// Log the width and height for debugging
 		console.log("Adjacency Matrix SVG width:", viewBoxWidth);
@@ -291,7 +293,7 @@ function renderLogicalRepresentation(logicalData, containerId, viewBoxWidth, vie
                      .append("line")
                      .attr("class", "edge")
                      .style("stroke", "black");
-
+	console.log("Logical Data - LogRep:", logicalData);
     // Draw nodes
     const nodes = svg.selectAll(".node")
                      .data(logicalData.nodes)
@@ -329,7 +331,7 @@ function renderLogicalRepresentation(logicalData, containerId, viewBoxWidth, vie
     console.log("test edges", logicalData.edges);
   
     // Set the viewBox attribute
-     svg.attr("viewBox", `${-viewBoxWidth/2} ${-viewBoxHeight/2} ${viewBoxWidth*2} ${viewBoxHeight*2}`);
+     svg.attr("viewBox", `0 0 ${viewBoxWidth} ${viewBoxHeight}`);
 
     // Log the width and height for debugging
     console.log("Logical Representation SVG width:", viewBoxWidth);
