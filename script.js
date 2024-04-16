@@ -306,15 +306,23 @@ function updateViewBox(horizontalPosition, verticalPosition, viewBoxWidth, viewB
 }
 
 // Function to render the logical representation with a force-directed layout
-function renderLogicalRepresentation(logicalData, containerId, viewBoxWidth, viewBoxHeight) {
+function renderLogicalRepresentation(logicalData, containerId) {
+	// Select the container element
+    const container = document.querySelector(containerId);
+
+    // Calculate the width and height of the container
+    const viewBoxWidth = container.clientWidth;
+    const viewBoxHeight = container.clientHeight;
+	
+	
 	console.log("Log ViewBox Width - 2:", viewBoxWidth);
     console.log("Log ViewBox Height - 2:", viewBoxHeight);
-  
-    // Create SVG container
+	
+	// Create SVG container
     const svg = d3.select(containerId)
         .append("svg")
-        .attr("width", "100%")
-        .attr("height", "100%")
+        .attr("width", viewBoxWidth)
+        .attr("height", viewBoxHeight)
         .attr("preserveAspectRatio", "xMidYMid meet")
 	//	.attr("viewBox", `${-viewBoxWidth/2} ${-viewBoxHeight/2} ${viewBoxWidth*2} ${viewBoxHeight*2}`);
   
@@ -322,7 +330,7 @@ function renderLogicalRepresentation(logicalData, containerId, viewBoxWidth, vie
 	console.log("log rep. viewboxHeight: ", viewBoxHeight);
 
     const simulation = d3.forceSimulation(logicalData.nodes)
-        .force("charge", d3.forceManyBody().strength(-100))
+        .force("charge", d3.forceManyBody().strength(-10))
         .force("center", d3.forceCenter(viewBoxWidth / 2, viewBoxHeight / 2))
         .force("link", d3.forceLink(logicalData.edges).distance(50))
 
